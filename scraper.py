@@ -33,10 +33,9 @@ for x in range(1, 50, 1):
     html = scraperwiki.scrape(shopurl + str(x))
     time.sleep(.2)
     root = lxml.html.fromstring(html)
-    brand = root.cssselect('brand')
-    pn = root.cssselect('pn')
-    price = root.cssselect('p_price')
-    articul = root.cssselect('articul')
+    brand = root.cssselect('b-showcase__item__brand')
+    pn = root.cssselect('b-showcase__item__link')
+    price = root.cssselect('b-showcase__item__price')
     for i in range(1,len(brand),1):
         print brand + " " + pn + " " + price + " " + articul
         scraperwiki.sqlite.save(unique_keys=["pk"], data={
@@ -44,7 +43,6 @@ for x in range(1, 50, 1):
                 'brand': brand[i],
                 'pn': pn[i],
                 'price': price[i],
-                'articul': articul[i]
             })
         index += 1
         #print name[i].text.encode('utf8')
