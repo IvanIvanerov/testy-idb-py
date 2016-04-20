@@ -26,30 +26,25 @@ import scraperwiki
 import lxml.html
 import re
 import time
-
 shopurl = "http://iledebeaute.ru/shop/fragrance/page"
 index = 1
-
 for x in range(1, 50, 1):
     print x
     html = scraperwiki.scrape(shopurl + str(x))
     time.sleep(.2)
     root = lxml.html.fromstring(html)
-    
     brand = root.cssselect('brand')
     pn = root.cssselect('pn')
     price = root.cssselect('p_price')
     articul = root.cssselect('articul')
-     for i in range(len(brand)):
+     for i in range(1,len(brand),1):
         print brand + " " + pn + " " + price + " " + articul
         scraperwiki.sqlite.save(unique_keys=["pk"], data={
                 'pk': index,
-                'name': brand[i].text.encode('utf-8').decode('utf-8').strip(),
-                'pn': pn[i].text.encode('utf-8').decode('utf-8').strip(),
-                'price': price[i].text.encode('utf-8').decode('utf-8').strip(),
-                'articul': articul
-#                ,
-#                'url': name[i].attrib['href'].strip()
+                'brand': brand[i],
+                'pn': pn[i],
+                'price': price[i],
+                'articul': articul[i]
             })
         index += 1
         #print name[i].text.encode('utf8')
