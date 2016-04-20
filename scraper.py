@@ -40,9 +40,8 @@ for x in range(1, 50, 1):
     pn = root.cssselect('pn')
     price = root.cssselect('p_price')
     articul = root.cssselect('articul')
-    
-    for i in range(len(brand)):
-    
+     for i in range(len(brand)):
+        print brand + " " + pn + " " + price + " " + articul
         scraperwiki.sqlite.save(unique_keys=["pk"], data={
                 'pk': index,
                 'name': brand[i].text.encode('utf-8').decode('utf-8').strip(),
